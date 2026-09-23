@@ -90,14 +90,54 @@ def split_documents(documents: list[Document]) -> list[Chunk]:
     When you write your own strategy, set `produced_by` to
     "chunker.py::split_documents" so your README's Sample Chunks section names
     the right function. `app.py chunks` prints that string for you.
-
+    
     Things worth thinking about before you write any code:
       - Are your documents short posts or long guides?
       - Is the useful information in one sentence, or spread over a paragraph?
       - Would splitting on paragraph breaks keep more thoughts intact than
         splitting on a character count?
     """
-    return fallback_split(documents)
+    
+    """ One chunk per document, prefixed with the category from its filename.
+
+    Written for `campus_life` specifically, from measuring it in Milestone 1.
+    Pointing `CORPUS` at another corpus would still produce chunks, but the
+    two decisions below were made against these 88 documents and the reasoning
+    for them does not carry over.
+
+    No splitting, no overlap. Splitting further on paragraph breaks would
+    hand the retriever one- or two-sentence fragments that no longer say what
+    they are about, and overlap only exists to repair an idea cut in half at a
+    boundary. There are no boundaries here.
+
+    A category line on every chunk. This is the part that
+    changes retrieval. `store.build_index` embeds `Chunk.text` and nothing
+    else, so anything the embedding needs has to be inside it, and the
+    filenames in this corpus sort every document into a category —
+    housing_tamsin_court.txt, dining_pellew_dining_hall.txt — that the body
+    text never states.
+    """
+    return [
+        Chunk(
+            text=f"{_category(doc.source)}\n\n{piece}",
+            source=doc.source,
+            index=0,
+            produced_by="chunker.py::split_documents",
+        )
+        for doc in documents
+        if (piece := doc.text.strip())
+    ]
+
+
+def _category(source: str) -> str:
+    """
+    The category line for a source: its filename up to the first underscore.
+
+    `housing_tamsin_court.txt` gives "Housing". Every filename in
+    `campus_life` has this shape.
+    """
+    stem = source.rsplit("/", 1)[-1].rsplit("\\", 1)[-1]
+    return stem.rsplit(".", 1)[0].split("_", 1)[0].strip().capitalize()
 
 
 def describe(chunks: list[Chunk]) -> str:

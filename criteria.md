@@ -58,9 +58,9 @@ in at least 4 of 5 tries.
 Tests if the agent that answers are derived from the corpus or from memory or halucinated.
 ---
 
-## 4. No chunk is shorter than 100 characters.
+## 4. Category is embedded in chunks
 
-Checks that each returned chunk is at least 100 character long.
+For all test questions, category is embedded and chunks begins with a category line - the filename up to the first underscore, capitalized - followed by a blank line and the category matches the source file the chunk came from.
 
 <!-- YOU WRITE THIS ONE.
 
@@ -78,7 +78,7 @@ Checks that each returned chunk is at least 100 character long.
 
 **Why this target:**
 
-    Average sentence length in the corpus is 75 characters (measured across all files), so a 100 character floor clears a typical complete sentence with buffer.
+Each file in campus_life is categorized with category being the first word in the file name. This criteria checks that each chunk embeds the correct category from its file name (first word up to the first underscore). The check is performed on the retrieved chunk, so all 5 retrivals should include the category, even Q5, unlike other criteria.
 
 ---
 
@@ -98,7 +98,8 @@ For at least 4 out of 5 test questions, the document named as the source actuall
 
 **Why this target:**
 
-Checks if the source is named correctly. The answer to questions 1-4 exist in the corpus and they should all be linked correctly. This is different from the check in #2 - naming a source doesn't mean the source actually contains the answer. Also prevents linking sources that are on the same topic but don't contain the direct answer.
+Category is added for more efficent querying, as files don't contain it.
+Category is not expected to appear in response to Q5 that does not have a backup file.
 
 ---
 
