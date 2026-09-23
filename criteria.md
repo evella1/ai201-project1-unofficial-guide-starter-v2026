@@ -19,22 +19,24 @@ pipeline earns credit; *"80% seemed reasonable"* does not.
 
 ## 1. Retrieved chunks contain the answer
 
-For at least 4 of my 5 test questions, the retrieved chunks include one that
-contains the answer.
+For at least 4 of my 5 test questions, the retrieved chunks include one that contains the answer.
 
 **Why this target:**
 <!-- e.g. "One of my questions is about a topic only two documents mention, so
      I expect that one to be hard." -->
 
+Answer to question 1 is a range, so the evaluation of correctness might not be consistent. Question number 5 that tests for lack of resources would not have the answer in the chunks.
 ---
 
 ## 2. Every answer names a source
 
-Every answer the system produces names at least one source document.
+For at least 4 out of 5 test questions, it produces names of at least one source document.
 
 **Why this target:**
 <!-- Why all five and not four? What about your setup makes that achievable —
      or what would have to go wrong for it not to be? -->
+
+Question 5 tests for lack of sources, so it cannot be evaluated as containing a source. The rest of answers should contain the source.
 
 ---
 
@@ -53,9 +55,12 @@ in at least 4 of 5 tries.
 <!-- What did your distances look like when you set the cutoff in Milestone 4?
      Was there a clean gap, or did the two groups overlap? -->
 
+Tests if the agent that answers are derived from the corpus or from memory or halucinated.
 ---
 
-## 4. Something about your chunks
+## 4. No chunk is shorter than 100 characters.
+
+Checks that each returned chunk is at least 100 character long.
 
 <!-- YOU WRITE THIS ONE.
 
@@ -73,11 +78,13 @@ in at least 4 of 5 tries.
 
 **Why this target:**
 
-
+    Average sentence length in the corpus is 75 characters (measured across all files), so a 100 character floor clears a typical complete sentence with buffer.
 
 ---
 
-## 5. Your choice
+## 5. Named source actually contains the answer.
+
+For at least 4 out of 5 test questions, the document named as the source actually contains the answer.
 
 <!-- YOU WRITE THIS ONE TOO.
 
@@ -91,7 +98,7 @@ in at least 4 of 5 tries.
 
 **Why this target:**
 
-
+Checks if the source is named correctly. The answer to questions 1-4 exist in the corpus and they should all be linked correctly. This is different from the check in #2 - naming a source doesn't mean the source actually contains the answer. Also prevents linking sources that are on the same topic but don't contain the direct answer.
 
 ---
 
