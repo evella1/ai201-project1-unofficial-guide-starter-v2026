@@ -27,7 +27,7 @@ QUESTIONS = [
     {"question": "What are the walk-in hours for the health center?", "expects": "8am to 11am"},
     {"question": "What is the maximum number of hours I can work on-campus a week during term?", "expects": "20 hours"},
     {"question": "When do applications open for study abroad?", "expects": "October"},
-    {"question": "Are there exams in the HIST 118 Modern World History class?", "expects": "no exams"},
+    {"question": "What time does the library open on weekends?", "expects": "I don't have enough information"},
 ]
 
 # Questions from a different world entirely. Your gate should refuse all five.
