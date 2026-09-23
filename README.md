@@ -144,9 +144,25 @@ Sources retrieved: course_biol_160.txt, course_biol_160_exams.txt, course_biol_1
 
      Milestone 4. -->
 
+In-corpus questions scored 0.206-0.366 and out-of-scope questions 0.808- 0.921. 
+I kept the threshold at 0.6 because it sits in the middle of that gap, leaving roughly equal margin.
+The library question (0.453) passes the gate, so the model must decline it itself.
+
+Top-k = 1 returns correct answers. Also, an answer lives in a single post and 1 post = 1 chunk. 
+I set top-k = 2 to provide some margin, while keeping token use minimal.
+
 | Question | In corpus? | Best distance |
 |---|---|---|
-|  |  |  |
+| How many hours per week should I expect to work on the BIOL 160 Cell Biology class? | Yes | 0.222 |
+| What are the walk-in hours for the health center? | Yes | 0.206 |
+| What is the maximum number of hours I can work on-campus a week during term? | Yes | 0.366 |
+| When do applications open for study abroad? | Yes | 0.246 |
+| What time does the library open on weekends? | No | 0.453 |
+| What is the capital of Mongolia? | No (out of scope) | 0.808 |
+| How do I change the oil in a diesel engine? | No (out of scope) | 0.921 |
+| Who won the 1994 World Cup? | No (out of scope) | 0.870 |
+| What is the recommended dosage of ibuprofen for a headache? | No (out of scope) | 0.848 |
+| How do I write a for loop in Rust? | No (out of scope) | 0.897 |
 
 ## How I Used AI
 
