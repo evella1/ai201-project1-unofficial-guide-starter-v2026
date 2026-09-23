@@ -27,10 +27,19 @@
 
      Milestone 5. -->
 
+     This is a question-answering system over the **campus_life** corpus - a set of
+short, student-written posts about one university: course workloads and exam
+formats, dorm buildings, dining halls, and administrative deadlines. It answers
+practical questions a student would actually ask, like "how many hours a week is
+BIOL 160?" or "what's laundry cost in Innisfree Hall?" 
+Each answer is generated from the retrieved documents and names the
+files it came from, so you can check it. Questions the corpus doesn't cover are
+refused.
+
 ## Chunking Strategy
 
-**Chunk size:**
-**Overlap:**
+**Chunk size:** The entire file, prefixed with a category derived from the file name.
+**Overlap:** None, since each chunk contains a complete context.
 
 <!-- What about YOUR documents made you pick these numbers? Short posts and
      long sectioned guides don't want the same chunking, and "800 seemed
@@ -117,14 +126,14 @@ Laundry costs $1.75 wash, $1.75 dry, app-based. On noise: moderate; the building
 <!-- One complete question and answer, pasted as text, with the source line
      visible. Milestone 4. -->
 
-**Question:**
+"How many hours per week should I expect to work on the BIOL 160 Cell Biology class?"                   
+  (best distance 0.222, cutoff 0.6)
 
-**Answer:**
+You should expect to spend 9 to 11 hours a week on the BIOL 160 Cell Biology class. This is mentioned in the documents `course_biol_160.txt` and `course_biol_160_workload.txt`.
 
-```
-```
+Sources retrieved: course_biol_160.txt, course_biol_160_exams.txt, course_biol_160_workload.txt, course_engl_205_workload.txt, course_stat_150_workload.txt
 
-**My relevance cutoff:**
+1 model calls this session, 628 tokens (568 in, 60 out)
 
 <!-- The number you set in config.py, and how you got there.
 
@@ -150,9 +159,9 @@ Laundry costs $1.75 wash, $1.75 dry, app-based. On noise: moderate; the building
 
      Milestone 5. -->
 
-**1.**
+**1.** I asked Claude to write the chunking function based on the requirements I provided. I asked it to embed the entire file name, since I thought including it in the chunks would improve retrieval accuracy. It did that, but then it noticed that the file header and the file name were redundant. It suggested using a category derived from the first word of the file name instead. I thought this was a great suggestion, so we implemented it.
 
-**2.**
+**2.** It really helped me understand how to think about acceptance criteria, and it gave detailed explanations of how to approach evaluation.
 
 <!-- ── Stretch features ─────────────────────────────────────────────────────
      Doing one? Say so here BEFORE you start. A feature this README never
