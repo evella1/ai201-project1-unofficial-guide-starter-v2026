@@ -274,13 +274,6 @@ I set top-k = 2 to provide some margin, while keeping token use minimal.
 <!-- Same format, same five criteria, three runs each.
      `python run_eval.py --label after` -->
 
-| Criterion | Target | Run 1 | Run 2 | Run 3 | Verdict |
-|---|---|---|---|---|---|
-| 1. Retrieved chunk contains the answer | 4 of 5 |  |  |  |  |
-| 2. Every answer names a source | 5 of 5 |  |  |  |  |
-| 3. Gate stops out-of-corpus questions | 4 of 5 |  |  |  |  |
-| 4. | | | | | |
-| 5. | | | | | |
 
 | Criterion | Target | Run 1 | Run 2 | Run 3 | Verdict |
 |---|---|---|---|---|---|
@@ -299,6 +292,8 @@ I set top-k = 2 to provide some margin, while keeping token use minimal.
 
      Milestone 4. -->
 
+     It actually shows lower score for Q2 (4/5), but it behaves correctly. It still passes because the target was set to 4/5. 
+
 ## What's Still Broken
 
 <!-- For each criterion still missed after your fix: what you'd do about it,
@@ -309,9 +304,14 @@ I set top-k = 2 to provide some margin, while keeping token use minimal.
 
      Milestone 5. -->
 
+     Criterion 2 should now be updated to check that when there is no answer, no source is cited.
+     The scorer still checks for exact wording, even though the answers were more accurate (Q2 passed 3/3, Q5 passed 1/3).
+
 ## What I'd Do Differently
 
 <!-- Knowing what you know now — which of your five criteria would you write
      differently, and why?
 
      Milestone 5. -->
+
+     I would have separated the checks performed for Q1-4 and Q5, since they test different behaviors.
