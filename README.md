@@ -254,7 +254,10 @@ I set top-k = 2 to provide some margin, while keeping token use minimal.
      low, and which one you'd tighten and to what.
 
      Milestone 3. -->
-
+     
+     All criteria passed. The criteria were stricter than they appear to be, because for #1 and #5 the Q5 was an expected failure - the answer didn't exist in the corpus. That means that all checks passed for all criteria where they were applicable. 
+     Criterion 2 was met, but it is flawed on Q5 in generation stage. The prompt requires naming a source even when the answer isn't found. So Q5 says the weekend hours aren't mentioned but still cites study_library_hours.txt (3/3 runs), which suggests the file supports the claim. This affects questions that pass the relevance gate (Q5: 0.4535) but aren't answerable from the corpus, which is the case Q5 was built to test. The prompt  should be updated to add: "If you don't have enough information, don't cite a source".
+     Q2 run 3 and Q5 all runs show failed, even though the answers were correct, because the scorer reads the string directly and expects the exact format. This would have succeeded under manual review or with an improved scorer. 
 ## The Improvement
 
 **What I changed:**
