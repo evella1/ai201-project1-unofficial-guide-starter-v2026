@@ -261,8 +261,10 @@ I set top-k = 2 to provide some margin, while keeping token use minimal.
 ## The Improvement
 
 **What I changed:**
+     I updated the prompt in generate.py. Before the citation rule applied to every answer ("Name the document"). Now it only applies when the model has an answer - it does not provide a source when it didn't find the information.
 
 **Why I picked it:**
+    Criterion 2 passed 5/5 but my diagnosis shows the pass is misleading: the citation rule applies even to answers the model doesn't have answers for, so the model cites source that doesn't support what it said.
 
 <!-- Connect it to a specific diagnosis above in one sentence. If you can't,
      you picked a fix because it sounded impressive. -->
@@ -279,6 +281,14 @@ I set top-k = 2 to provide some margin, while keeping token use minimal.
 | 3. Gate stops out-of-corpus questions | 4 of 5 |  |  |  |  |
 | 4. | | | | | |
 | 5. | | | | | |
+
+| Criterion | Target | Run 1 | Run 2 | Run 3 | Verdict |
+|---|---|---|---|---|---|
+| 1. Retrieved chunk contains the answer | 4 of 5 | 4 of 5 | 4 of 5 | 4 of 5  | PASS |
+| 2. Every answer names a source | 4 of 5 |  4 of 5 |  4 of 5 |  4 of 5 | PASS |
+| 3. Gate stops out-of-corpus questions | 4 of 5 | 5 of 5|  |  | PASS |
+| 4. Category is embedded in chunks | 5 of 5 | 5 of 5 | | | PASS |
+| 5. Named source actually contains the answer | 4 of 5 | 4 of 5 | 4 of 5 | 4 of 5 | PASS |
 
 **Did it help?**
 
