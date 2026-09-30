@@ -229,11 +229,11 @@ I set top-k = 2 to provide some margin, while keeping token use minimal.
 
 | # | Criterion | Verdict | How I decided |
 |---|---|---|---|
-| 1 |  |  |  |
-| 2 |  |  |  |
-| 3 |  |  |  |
-| 4 |  |  |  |
-| 5 |  |  |  |
+| 1 | Retrieved chunk contains the answer | MET | Verified the retrieved chunks and their content and confirmed that at least one contains the answer |
+| 2 | Every answer names a source | MET | Verified each run and questions for a source and confirmed the source is mentioned |
+| 3 | Gate stops out-of-corpus questions | MET | Verified that all out of corpus questions were refused |
+| 4 | Category is embedded in chunks | MET | Verified all 10 retrieved chunks and confirmed existance and corectness of the category |
+| 5 | Named source actually contains the answer | MET | Verified that all the named source contained the answer for every question and run  |
 
 ## Diagnoses
 
