@@ -206,11 +206,11 @@ I set top-k = 2 to provide some margin, while keeping token use minimal.
 
 | Criterion | Target | Run 1 | Run 2 | Run 3 | Verdict |
 |---|---|---|---|---|---|
-| 1. Retrieved chunk contains the answer | 4 of 5 |  |  |  |  |
-| 2. Every answer names a source | 5 of 5 |  |  |  |  |
-| 3. Gate stops out-of-corpus questions | 4 of 5 |  |  |  |  |
-| 4. | | | | | |
-| 5. | | | | | |
+| 1. Retrieved chunk contains the answer | 4 of 5 | 4 of 5 | 4 of 5 | 4 of 5  | PASS |
+| 2. Every answer names a source | 4 of 5 |  5 of 5 |  5 of 5 |  5 of 5 | PASS |
+| 3. Gate stops out-of-corpus questions | 4 of 5 | 5 of 5|  |  | PASS |
+| 4. Category is embedded in chunks | 5 of 5 | 5 of 5 | | | PASS |
+| 5. Named source actually contains the answer | 4 of 5 | 4 of 5 | 4 of 5 | 4 of 5 | PASS |
 
 <!-- Underneath, paste the REAL output for each criterion from one of your
      runs — the actual text your system produced, not a description of it.
