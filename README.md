@@ -199,7 +199,7 @@ I set top-k = 2 to provide some margin, while keeping token use minimal.
      writes it all into results/ for you. Targets come from criteria.md; the
      verdict column is your call.
 
-     Criterion 3 is measured in one deterministic pass rather than three, so
+     Criterion 3 and 4 are measured in one deterministic pass rather than three, so
      the same number goes in all three run columns. That's correct, not lazy.
 
      Milestone 1. -->
@@ -258,6 +258,7 @@ I set top-k = 2 to provide some margin, while keeping token use minimal.
      All criteria passed. The criteria were stricter than they appear to be, because for #1 and #5 the Q5 was an expected failure - the answer didn't exist in the corpus. That means that all checks passed for all criteria where they were applicable. 
      Criterion 2 was met, but it is flawed on Q5 in generation stage. The prompt requires naming a source even when the answer isn't found. So Q5 says the weekend hours aren't mentioned but still cites study_library_hours.txt (3/3 runs), which suggests the file supports the claim. This affects questions that pass the relevance gate (Q5: 0.4535) but aren't answerable from the corpus, which is the case Q5 was built to test. The prompt  should be updated to add: "If you don't have enough information, don't cite a source".
      Q2 run 3 and Q5 all runs show failed, even though the answers were correct, because the scorer reads the string directly and expects the exact format. This would have succeeded under manual review or with an improved scorer. 
+     
 ## The Improvement
 
 **What I changed:**
@@ -274,13 +275,14 @@ I set top-k = 2 to provide some margin, while keeping token use minimal.
 <!-- Same format, same five criteria, three runs each.
      `python run_eval.py --label after` -->
 
+# Criterion 3 and 4 are measured in one deterministic pass
 
 | Criterion | Target | Run 1 | Run 2 | Run 3 | Verdict |
 |---|---|---|---|---|---|
 | 1. Retrieved chunk contains the answer | 4 of 5 | 4 of 5 | 4 of 5 | 4 of 5  | PASS |
 | 2. Every answer names a source | 4 of 5 |  4 of 5 |  4 of 5 |  4 of 5 | PASS |
 | 3. Gate stops out-of-corpus questions | 4 of 5 | 5 of 5|  |  | PASS |
-| 4. Category is embedded in chunks | 5 of 5 | 5 of 5 | | | PASS |
+| 4. Category is embedded in chunks | 5 of 5 | 5 of 5 | | | PASS | 
 | 5. Named source actually contains the answer | 4 of 5 | 4 of 5 | 4 of 5 | 4 of 5 | PASS |
 
 **Did it help?**
